@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Darasi | Luxury Resin Jewelry & Accessories</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6d4c41;
@@ -12,16 +13,28 @@
             --accent: #8d6e63;
             --light: #efebe9;
             --dark: #3e2723;
+            --error: #d32f2f;
+            --success: #388e3c;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
         body {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Roboto', sans-serif;
             color: var(--dark);
             background-color: var(--light);
+            line-height: 1.6;
         }
         
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Header Styles */
         header {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -44,6 +57,7 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            font-family: 'Playfair Display', serif;
         }
         
         .logo span {
@@ -51,11 +65,13 @@
             display: block;
             font-style: italic;
             color: var(--accent);
+            font-family: 'Roboto', sans-serif;
         }
         
         .nav-links {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
         
         .nav-links a {
@@ -63,6 +79,7 @@
             color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 1rem;
         }
         
         .nav-links a:hover {
@@ -71,6 +88,7 @@
         
         .cart-icon {
             position: relative;
+            margin-left: 1rem;
         }
         
         .cart-count {
@@ -88,9 +106,37 @@
             font-size: 0.7rem;
         }
         
+        .auth-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .auth-status span {
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        .auth-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .auth-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
         .hero {
             height: 80vh;
-            background: url('b42e6922-1fdc-434f-976d-9a1236146c04.webp') no-repeat center center;
+            background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
             background-size: cover;
             display: flex;
             align-items: center;
@@ -135,12 +181,17 @@
             text-decoration: none;
             border-radius: 30px;
             transition: background-color 0.3s;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
         
         .btn:hover {
             background-color: var(--dark);
         }
         
+        /* Main Content Sections */
         .section {
             padding: 5rem 5%;
             max-width: 1400px;
@@ -154,6 +205,7 @@
             color: var(--primary);
         }
         
+        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -185,6 +237,7 @@
         .product-title {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
         }
         
         .product-price {
@@ -203,12 +256,14 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-weight: 500;
         }
         
         .add-to-cart:hover {
             background-color: var(--dark);
         }
         
+        /* About Section */
         .about-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -222,6 +277,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
+        /* Testimonials */
         .testimonials {
             background-color: var(--secondary);
         }
@@ -248,6 +304,7 @@
             font-weight: 700;
         }
         
+        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
@@ -267,6 +324,7 @@
             margin-bottom: 1.5rem;
             position: relative;
             padding-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
         }
         
         .footer-column h3::after {
@@ -325,108 +383,276 @@
             margin-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
+        
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .auth-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .auth-container {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .auth-header p {
+            color: var(--accent);
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .auth-form-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .auth-form-btn:hover {
+            background-color: var(--dark);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: var(--error);
+            background-color: #fce4e4;
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .success-message {
+            color: var(--success);
+            background-color: #e8f5e9;
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="navbar">
-            <a href="index.html" class="logo">Darasi<span>Providing Luxury In Simplicity</span></a>
+            <a href="#" class="logo">Darasi<span>Providing Luxury In Simplicity</span></a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="shop.html">Shop</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="#" class="cart-icon">
+                <a href="#" class="nav-link" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="shop">Shop</a>
+                <a href="#" class="nav-link" data-page="about">About</a>
+                <a href="#" class="nav-link" data-page="contact">Contact</a>
+                <div class="auth-status" id="auth-status">
+                    <!-- Dynamically filled -->
+                </div>
+                <a href="#" class="cart-icon" id="cart-icon">
                     <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-count">0</span>
+                    <span class="cart-count" id="cart-count">0</span>
                 </a>
             </div>
         </div>
     </header>
     
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Handcrafted Resin Elegance</h1>
-            <p>Discover our unique collection of resin earrings, pendants, and keychains that blend artistry with simplicity.</p>
-            <a href="shop.html" class="btn">Shop Now</a>
-        </div>
-    </section>
-    
-    <section class="section">
-        <h2 class="section-title">Featured Collections</h2>
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1590649880765-7e20f5a4a95e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ocean Wave Earrings" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Ocean Wave Earrings</h3>
-                    <span class="product-price">$24.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Home Section -->
+        <section class="hero" id="home-section">
+            <div class="hero-content">
+                <h1>Handcrafted Resin Elegance</h1>
+                <p>Discover our unique collection of resin earrings, pendants, and keychains that blend artistry with simplicity.</p>
+                <button class="btn" id="shop-now-btn">Shop Now</button>
+            </div>
+        </section>
+        
+        <section class="section" id="featured-section">
+            <h2 class="section-title">Featured Collections</h2>
+            <div class="products-grid" id="featured-products">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1590649880765-7e20f5a4a95e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ocean Wave Earrings" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Ocean Wave Earrings</h3>
+                        <span class="product-price">$24.99</span>
+                        <button class="add-to-cart" data-product="1">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Floral Resin Pendant" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Floral Resin Pendant</h3>
+                        <span class="product-price">$29.99</span>
+                        <button class="add-to-cart" data-product="2">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Geometric Keychain" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Geometric Keychain</h3>
+                        <span class="product-price">$19.99</span>
+                        <button class="add-to-cart" data-product="3">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1605106715994-18e3aac81f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Gold Leaf Earrings" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Gold Leaf Earrings</h3>
+                        <span class="product-price">$27.99</span>
+                        <button class="add-to-cart" data-product="4">Add to Cart</button>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Floral Resin Pendant" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Floral Resin Pendant</h3>
-                    <span class="product-price">$29.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
+        </section>
+        
+        <section class="section about-section" id="about-section">
+            <div>
+                <h2 class="section-title">Our Story</h2>
+                <p>Darasi was born from a passion for creating beautiful, minimalist jewelry that makes a statement without overwhelming. Each piece is handcrafted with care, using high-quality resin and carefully selected inclusions.</p>
+                <p>Our founder, a self-taught resin artist, started making jewelry as a hobby that quickly turned into a thriving business. Every Darasi piece reflects our core philosophy: luxury doesn't have to be complicated.</p>
+                <button class="btn" id="learn-more-btn">Learn More</button>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Handcrafting process" class="about-image">
+            </div>
+        </section>
+        
+        <section class="section testimonials" id="testimonials-section">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The Ocean Wave Earrings are absolutely stunning! I get compliments every time I wear them. The craftsmanship is exceptional."</p>
+                    <p class="testimonial-author">- Sarah M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"I bought the floral pendant as a gift and the recipient loved it! The packaging was beautiful and the piece itself is even more gorgeous in person."</p>
+                    <p class="testimonial-author">- James T.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Darasi's resin keychains are so unique and durable. I've had mine on my keys for months and it still looks brand new. Will definitely be ordering more!"</p>
+                    <p class="testimonial-author">- Emily R.</p>
                 </div>
             </div>
-            
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Geometric Keychain" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Geometric Keychain</h3>
-                    <span class="product-price">$19.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-            
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1605106715994-18e3aac81f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Gold Leaf Earrings" class="product-image">
-                <div class="product-info">
-                    <h3 class="product-title">Gold Leaf Earrings</h3>
-                    <span class="product-price">$27.99</span>
-                    <button class="add-to-cart">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+        
+        <!-- Other sections will be dynamically loaded here -->
+    </main>
     
-    <section class="section about-section">
-        <div>
-            <h2 class="section-title">Our Story</h2>
-            <p>Darasi was born from a passion for creating beautiful, minimalist jewelry that makes a statement without overwhelming. Each piece is handcrafted with care, using high-quality resin and carefully selected inclusions.</p>
-            <p>Our founder, a self-taught resin artist, started making jewelry as a hobby that quickly turned into a thriving business. Every Darasi piece reflects our core philosophy: luxury doesn't have to be complicated.</p>
-            <a href="about.html" class="btn">Learn More</a>
-        </div>
-        <div>
-            <img src="ChatGPT Image Aug 10, 2025, 03_15_48 PM.png" alt="Handcrafting process" class="about-image">
-        </div>
-    </section>
-    
-    <section class="section testimonials">
-        <h2 class="section-title">What Our Customers Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-text">"The Ocean Wave Earrings are absolutely stunning! I get compliments every time I wear them. The craftsmanship is exceptional."</p>
-                <p class="testimonial-author">- Sarah M.</p>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"I bought the floral pendant as a gift and the recipient loved it! The packaging was beautiful and the piece itself is even more gorgeous in person."</p>
-                <p class="testimonial-author">- James T.</p>
-            </div>
-            <div class="testimonial-card">
-                <p class="testimonial-text">"Darasi's resin keychains are so unique and durable. I've had mine on my keys for months and it still looks brand new. Will definitely be ordering more!"</p>
-                <p class="testimonial-author">- Emily R.</p>
-            </div>
-        </div>
-    </section>
-    
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-column">
@@ -441,20 +667,20 @@
             <div class="footer-column">
                 <h3>Shop</h3>
                 <ul>
-                    <li><a href="shop.html">All Products</a></li>
-                    <li><a href="shop.html?category=earrings">Earrings</a></li>
-                    <li><a href="shop.html?category=pendants">Pendants</a></li>
-                    <li><a href="shop.html?category=keychains">Keychains</a></li>
-                    <li><a href="shop.html?category=new">New Arrivals</a></li>
+                    <li><a href="#" data-page="shop">All Products</a></li>
+                    <li><a href="#" data-page="shop" data-category="earrings">Earrings</a></li>
+                    <li><a href="#" data-page="shop" data-category="pendants">Pendants</a></li>
+                    <li><a href="#" data-page="shop" data-category="keychains">Keychains</a></li>
+                    <li><a href="#" data-page="shop" data-category="new">New Arrivals</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Help</h3>
                 <ul>
-                    <li><a href="faq.html">FAQ</a></li>
-                    <li><a href="shipping.html">Shipping & Returns</a></li>
-                    <li><a href="size-guide.html">Size Guide</a></li>
-                    <li><a href="care.html">Product Care</a></li>
+                    <li><a href="#" data-page="faq">FAQ</a></li>
+                    <li><a href="#" data-page="shipping">Shipping & Returns</a></li>
+                    <li><a href="#" data-page="size-guide">Size Guide</a></li>
+                    <li><a href="#" data-page="care">Product Care</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -462,7 +688,7 @@
                 <ul>
                     <li><a href="mailto:hello@darasi.com">hello@darasi.com</a></li>
                     <li><a href="tel:+1234567890">(123) 456-7890</a></li>
-                    <li><a href="contact.html">Contact Form</a></li>
+                    <li><a href="#" data-page="contact">Contact Form</a></li>
                 </ul>
             </div>
         </div>
@@ -471,24 +697,838 @@
         </div>
     </footer>
     
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-container" id="auth-container">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <!-- Content will be dynamically loaded here -->
+        </div>
+    </div>
+    
     <script>
-        // Simple cart functionality
-        let cartCount = 0;
-        const cartButtons = document.querySelectorAll('.add-to-cart');
-        const cartDisplay = document.querySelector('.cart-count');
+        // ======================
+        // Authentication System
+        // ======================
         
-        cartButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                cartCount++;
-                cartDisplay.textContent = cartCount;
-                
-                // Animation feedback
-                button.textContent = 'Added!';
-                setTimeout(() => {
-                    button.textContent = 'Add to Cart';
-                }, 1000);
+        // User database (in a real app, this would be server-side)
+        const usersDB = JSON.parse(localStorage.getItem('darasiUsers')) || [];
+        
+        // Current user session
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        
+        // Shopping cart
+        let cart = JSON.parse(localStorage.getItem('darasiCart')) || [];
+        let cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+        
+        // DOM elements
+        const authModal = document.getElementById('auth-modal');
+        const authContainer = document.getElementById('auth-container');
+        const closeModal = document.getElementById('close-modal');
+        const authStatus = document.getElementById('auth-status');
+        const cartIcon = document.getElementById('cart-icon');
+        const cartCountEl = document.getElementById('cart-count');
+        const shopNowBtn = document.getElementById('shop-now-btn');
+        const learnMoreBtn = document.getElementById('learn-more-btn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        
+        // Initialize the app
+        function init() {
+            updateAuthStatus();
+            updateCartCount();
+            setupEventListeners();
+            
+            // Check if user is trying to access a protected page
+            const protectedPages = ['shop', 'cart', 'account'];
+            const currentPage = window.location.hash.substring(1);
+            
+            if (protectedPages.includes(currentPage) && !currentUser) {
+                showAuthModal('login');
+                window.location.hash = '';
+            }
+        }
+        
+        // Update authentication status in header
+        function updateAuthStatus() {
+            if (currentUser) {
+                authStatus.innerHTML = `
+                    <span>Welcome, ${currentUser.email.split('@')[0]}</span>
+                    <button class="auth-btn" id="logout-btn">Logout</button>
+                `;
+                document.getElementById('logout-btn').addEventListener('click', logout);
+            } else {
+                authStatus.innerHTML = `
+                    <button class="auth-btn" id="login-btn">Login</button>
+                    <button class="auth-btn" id="register-btn">Register</button>
+                `;
+                document.getElementById('login-btn').addEventListener('click', () => showAuthModal('login'));
+                document.getElementById('register-btn').addEventListener('click', () => showAuthModal('register'));
+            }
+        }
+        
+        // Update cart count
+        function updateCartCount() {
+            cartCountEl.textContent = cartCount;
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                authModal.classList.remove('active');
             });
-        });
+            
+            // Shop now button
+            shopNowBtn.addEventListener('click', () => {
+                if (currentUser) {
+                    window.location.hash = 'shop';
+                    loadShopPage();
+                } else {
+                    showAuthModal('login');
+                }
+            });
+            
+            // Learn more button
+            learnMoreBtn.addEventListener('click', () => {
+                window.location.hash = 'about';
+            });
+            
+            // Navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.getAttribute('data-page');
+                    
+                    if (['shop', 'cart', 'account'].includes(page) && !currentUser) {
+                        showAuthModal('login');
+                        return;
+                    }
+                    
+                    window.location.hash = page;
+                    loadPage(page);
+                });
+            });
+            
+            // Add to cart buttons
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (!currentUser) {
+                        showAuthModal('login');
+                        return;
+                    }
+                    
+                    const productId = btn.getAttribute('data-product');
+                    addToCart(productId);
+                });
+            });
+            
+            // Handle hash changes
+            window.addEventListener('hashchange', () => {
+                const page = window.location.hash.substring(1) || 'home';
+                loadPage(page);
+            });
+            
+            // Initial page load
+            const initialPage = window.location.hash.substring(1) || 'home';
+            loadPage(initialPage);
+        }
+        
+        // Load appropriate page
+        function loadPage(page) {
+            const mainContent = document.getElementById('main-content');
+            
+            switch(page) {
+                case 'home':
+                    // Already showing home content
+                    break;
+                case 'shop':
+                    loadShopPage();
+                    break;
+                case 'about':
+                    // Already showing about content
+                    break;
+                case 'contact':
+                    loadContactPage();
+                    break;
+                case 'account':
+                    loadAccountPage();
+                    break;
+                case 'cart':
+                    loadCartPage();
+                    break;
+                default:
+                    // Default to home
+                    window.location.hash = 'home';
+            }
+            
+            // Update active nav link
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-page') === page) {
+                    link.style.color = 'var(--primary)';
+                    link.style.fontWeight = '600';
+                } else {
+                    link.style.color = '';
+                    link.style.fontWeight = '';
+                }
+            });
+        }
+        
+        // Load shop page
+        function loadShopPage() {
+            const mainContent = document.getElementById('main-content');
+            
+            // Hide all sections except shop
+            document.querySelectorAll('#main-content > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Check if shop section already exists
+            let shopSection = document.getElementById('shop-section');
+            
+            if (!shopSection) {
+                shopSection = document.createElement('section');
+                shopSection.id = 'shop-section';
+                shopSection.className = 'section';
+                shopSection.innerHTML = `
+                    <h2 class="section-title">Our Collections</h2>
+                    <div class="products-grid" id="shop-products">
+                        <!-- Products will be loaded here -->
+                    </div>
+                `;
+                mainContent.appendChild(shopSection);
+                
+                // Load products
+                loadProducts();
+            }
+            
+            shopSection.style.display = 'block';
+        }
+        
+        // Load products
+        function loadProducts() {
+            const shopProducts = document.getElementById('shop-products');
+            
+            // Sample products data
+            const products = [
+                {
+                    id: 1,
+                    name: "Ocean Wave Earrings",
+                    price: 24.99,
+                    image: "https://images.unsplash.com/photo-1590649880765-7e20f5a4a95e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "earrings"
+                },
+                {
+                    id: 2,
+                    name: "Floral Resin Pendant",
+                    price: 29.99,
+                    image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "pendants"
+                },
+                {
+                    id: 3,
+                    name: "Geometric Keychain",
+                    price: 19.99,
+                    image: "https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "keychains"
+                },
+                {
+                    id: 4,
+                    name: "Gold Leaf Earrings",
+                    price: 27.99,
+                    image: "https://images.unsplash.com/photo-1605106715994-18e3aac81f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "earrings"
+                },
+                {
+                    id: 5,
+                    name: "Dried Flower Earrings",
+                    price: 26.99,
+                    image: "https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "earrings"
+                },
+                {
+                    id: 6,
+                    name: "Butterfly Pendant",
+                    price: 22.99,
+                    image: "https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "pendants"
+                },
+                {
+                    id: 7,
+                    name: "Personalized Keychain",
+                    price: 21.99,
+                    image: "https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "keychains"
+                },
+                {
+                    id: 8,
+                    name: "Minimalist Hoop Earrings",
+                    price: 23.99,
+                    image: "https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+                    category: "earrings"
+                }
+            ];
+            
+            // Get category from URL if exists
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            
+            // Filter products by category if specified
+            const filteredProducts = category 
+                ? products.filter(product => product.category === category)
+                : products;
+            
+            // Display products
+            shopProducts.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <span class="product-price">$${product.price.toFixed(2)}</span>
+                        <button class="add-to-cart" data-product="${product.id}">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to new add-to-cart buttons
+            document.querySelectorAll('#shop-products .add-to-cart').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (!currentUser) {
+                        showAuthModal('login');
+                        return;
+                    }
+                    
+                    const productId = btn.getAttribute('data-product');
+                    addToCart(productId);
+                });
+            });
+        }
+        
+        // Load contact page
+        function loadContactPage() {
+            const mainContent = document.getElementById('main-content');
+            
+            // Hide all sections except contact
+            document.querySelectorAll('#main-content > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Check if contact section already exists
+            let contactSection = document.getElementById('contact-section');
+            
+            if (!contactSection) {
+                contactSection = document.createElement('section');
+                contactSection.id = 'contact-section';
+                contactSection.className = 'section';
+                contactSection.innerHTML = `
+                    <h2 class="section-title">Contact Us</h2>
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <form id="contact-form" style="display: grid; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                `;
+                mainContent.appendChild(contactSection);
+                
+                // Add form submission handler
+                document.getElementById('contact-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your message! We will get back to you soon.');
+                    document.getElementById('contact-form').reset();
+                });
+            }
+            
+            contactSection.style.display = 'block';
+        }
+        
+        // Load account page
+        function loadAccountPage() {
+            const mainContent = document.getElementById('main-content');
+            
+            // Hide all sections except account
+            document.querySelectorAll('#main-content > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Check if account section already exists
+            let accountSection = document.getElementById('account-section');
+            
+            if (!accountSection) {
+                accountSection = document.createElement('section');
+                accountSection.id = 'account-section';
+                accountSection.className = 'section';
+                accountSection.innerHTML = `
+                    <h2 class="section-title">My Account</h2>
+                    <div style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Welcome, ${currentUser.email}</h3>
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="margin-bottom: 1rem;">Account Details</h4>
+                            <p><strong>Email:</strong> ${currentUser.email}</p>
+                            <p><strong>Member since:</strong> ${new Date(currentUser.createdAt).toLocaleDateString()}</p>
+                        </div>
+                        <div style="margin-bottom: 2rem;">
+                            <h4 style="margin-bottom: 1rem;">Order History</h4>
+                            <p>You haven't placed any orders yet.</p>
+                        </div>
+                        <button class="auth-btn" id="account-logout-btn" style="width: 100%;">Logout</button>
+                    </div>
+                `;
+                mainContent.appendChild(accountSection);
+                
+                // Add logout button handler
+                document.getElementById('account-logout-btn').addEventListener('click', logout);
+            }
+            
+            accountSection.style.display = 'block';
+        }
+        
+        // Load cart page
+        function loadCartPage() {
+            const mainContent = document.getElementById('main-content');
+            
+            // Hide all sections except cart
+            document.querySelectorAll('#main-content > section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Check if cart section already exists
+            let cartSection = document.getElementById('cart-section');
+            
+            if (!cartSection) {
+                cartSection = document.createElement('section');
+                cartSection.id = 'cart-section';
+                cartSection.className = 'section';
+                mainContent.appendChild(cartSection);
+            }
+            
+            // Update cart content
+            updateCartDisplay();
+            
+            cartSection.style.display = 'block';
+        }
+        
+        // Update cart display
+        function updateCartDisplay() {
+            const cartSection = document.getElementById('cart-section');
+            
+            if (cart.length === 0) {
+                cartSection.innerHTML = `
+                    <h2 class="section-title">Your Cart</h2>
+                    <div style="text-align: center; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                        <p style="margin-bottom: 1rem;">Your cart is empty</p>
+                        <a href="#" class="btn" data-page="shop">Continue Shopping</a>
+                    </div>
+                `;
+                
+                // Add event listener to shop button
+                cartSection.querySelector('.btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.hash = 'shop';
+                    loadShopPage();
+                });
+            } else {
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                cartSection.innerHTML = `
+                    <h2 class="section-title">Your Cart</h2>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
+                            ${cart.map(item => `
+                                <div style="display: flex; gap: 1.5rem; align-items: center; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                                    <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;">
+                                    <div style="flex: 1;">
+                                        <h3 style="margin-bottom: 0.5rem;">${item.name}</h3>
+                                        <p style="color: var(--primary); font-weight: 600;">$${item.price.toFixed(2)}</p>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <button class="quantity-btn" data-product="${item.id}" data-action="decrease">-</button>
+                                        <span>${item.quantity}</span>
+                                        <button class="quantity-btn" data-product="${item.id}" data-action="increase">+</button>
+                                    </div>
+                                    <button class="remove-btn" data-product="${item.id}" style="background: none; border: none; color: var(--error); cursor: pointer;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+                                <h3>Total</h3>
+                                <h3>$${total.toFixed(2)}</h3>
+                            </div>
+                            <button class="btn" id="checkout-btn" style="width: 100%;">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                `;
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const productId = btn.getAttribute('data-product');
+                        const action = btn.getAttribute('data-action');
+                        updateCartQuantity(productId, action);
+                    });
+                });
+                
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const productId = btn.getAttribute('data-product');
+                        removeFromCart(productId);
+                    });
+                });
+                
+                // Add event listener to checkout button
+                document.getElementById('checkout-btn').addEventListener('click', () => {
+                    alert('Checkout functionality would be implemented here with payment processing');
+                });
+            }
+        }
+        
+        // Show auth modal
+        function showAuthModal(type) {
+            authModal.classList.add('active');
+            
+            if (type === 'login') {
+                authContainer.innerHTML = `
+                    <button class="close-modal" id="close-modal">&times;</button>
+                    <div class="auth-header">
+                        <h2>Login</h2>
+                        <p>Access your Darasi account</p>
+                    </div>
+                    
+                    <form class="auth-form" id="login-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        
+                        <button type="submit" class="auth-form-btn">Login</button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="switch-to-register">Register here</a></p>
+                    </div>
+                `;
+                
+                // Add form submission handler
+                document.getElementById('login-form').addEventListener('submit', handleLogin);
+                
+                // Add switch to register handler
+                document.getElementById('switch-to-register').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showAuthModal('register');
+                });
+            } else {
+                authContainer.innerHTML = `
+                    <button class="close-modal" id="close-modal">&times;</button>
+                    <div class="auth-header">
+                        <h2>Register</h2>
+                        <p>Create your Darasi account</p>
+                    </div>
+                    
+                    <form class="auth-form" id="register-form">
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" required minlength="6">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reg-confirm-password">Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" required>
+                        </div>
+                        
+                        <button type="submit" class="auth-form-btn">Register</button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="switch-to-login">Login here</a></p>
+                    </div>
+                `;
+                
+                // Add form submission handler
+                document.getElementById('register-form').addEventListener('submit', handleRegister);
+                
+                // Add switch to login handler
+                document.getElementById('switch-to-login').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showAuthModal('login');
+                });
+            }
+        }
+        
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Find user
+            const user = usersDB.find(u => u.email === email);
+            
+            if (!user) {
+                showAuthError('User not found');
+                return;
+            }
+            
+            // Simple password check (in real app, use proper hashing)
+            if (user.password !== simpleHash(password)) {
+                showAuthError('Incorrect password');
+                return;
+            }
+            
+            // Create session
+            currentUser = {
+                email: user.email,
+                createdAt: user.createdAt
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update UI
+            updateAuthStatus();
+            
+            // Close modal
+            authModal.classList.remove('active');
+            
+            // Show success message
+            showMessage('success', 'Logged in successfully!');
+            
+            // Redirect to previous page or home
+            const prevPage = window.location.hash.substring(1);
+            if (prevPage && prevPage !== 'login') {
+                loadPage(prevPage);
+            }
+        }
+        
+        // Handle registration
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                showAuthError('Passwords do not match');
+                return;
+            }
+            
+            if (usersDB.some(u => u.email === email)) {
+                showAuthError('Email already registered');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                email,
+                password: simpleHash(password), // In real app, use proper hashing
+                createdAt: new Date().toISOString()
+            };
+            
+            // Save to "database"
+            usersDB.push(newUser);
+            localStorage.setItem('darasiUsers', JSON.stringify(usersDB));
+            
+            // Auto-login
+            currentUser = {
+                email: newUser.email,
+                createdAt: newUser.createdAt
+            };
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update UI
+            updateAuthStatus();
+            
+            // Close modal
+            authModal.classList.remove('active');
+            
+            // Show success message
+            showMessage('success', 'Account created successfully!');
+        }
+        
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            updateAuthStatus();
+            showMessage('success', 'Logged out successfully!');
+            
+            // Redirect to home if on protected page
+            const currentPage = window.location.hash.substring(1);
+            const protectedPages = ['account', 'cart'];
+            
+            if (protectedPages.includes(currentPage)) {
+                window.location.hash = 'home';
+            }
+        }
+        
+        // Show auth error
+        function showAuthError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            const form = authContainer.querySelector('.auth-form');
+            if (form) {
+                // Remove any existing error messages
+                const existingError = authContainer.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                authContainer.insertBefore(errorDiv, form);
+            }
+        }
+        
+        // Show message
+        function showMessage(type, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${type}-message`;
+            messageDiv.textContent = text;
+            messageDiv.style.position = 'fixed';
+            messageDiv.style.top = '20px';
+            messageDiv.style.right = '20px';
+            messageDiv.style.zIndex = '1000';
+            messageDiv.style.padding = '1rem';
+            messageDiv.style.borderRadius = '4px';
+            messageDiv.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(messageDiv);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Simple hash function (for demo only - in production use proper hashing like bcrypt)
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = (hash << 5) - hash + char;
+                hash |= 0; // Convert to 32bit integer
+            }
+            return hash.toString();
+        }
+        
+        // ======================
+        // Shopping Cart System
+        // ======================
+        
+        // Add to cart
+        function addToCart(productId) {
+            // In a real app, we would get product details from a database
+            // For demo, we'll use a simple mapping
+            const products = {
+                '1': { name: 'Ocean Wave Earrings', price: 24.99, image: 'https://images.unsplash.com/photo-1590649880765-7e20f5a4a95e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80' },
+                '2': { name: 'Floral Resin Pendant', price: 29.99, image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80' },
+                '3': { name: 'Geometric Keychain', price: 19.99, image: 'https://images.unsplash.com/photo-1603974372036-a5c34cee0f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80' },
+                '4': { name: 'Gold Leaf Earrings', price: 27.99, image: 'https://images.unsplash.com/photo-1605106715994-18e3aac81f6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80' }
+            };
+            
+            const product = products[productId];
+            
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart count
+            cartCount += 1;
+            updateCartCount();
+            
+            // Save to localStorage
+            localStorage.setItem('darasiCart', JSON.stringify(cart));
+            
+            // Show success message
+            showMessage('success', `${product.name} added to cart!`);
+        }
+        
+        // Update cart quantity
+        function updateCartQuantity(productId, action) {
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                if (action === 'increase') {
+                    item.quantity += 1;
+                    cartCount += 1;
+                } else if (action === 'decrease' && item.quantity > 1) {
+                    item.quantity -= 1;
+                    cartCount -= 1;
+                }
+                
+                // Update cart count
+                updateCartCount();
+                
+                // Save to localStorage
+                localStorage.setItem('darasiCart', JSON.stringify(cart));
+                
+                // Update cart display
+                updateCartDisplay();
+            }
+        }
+        
+        // Remove from cart
+        function removeFromCart(productId) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                cartCount -= cart[itemIndex].quantity;
+                cart.splice(itemIndex, 1);
+                
+                // Update cart count
+                updateCartCount();
+                
+                // Save to localStorage
+                localStorage.setItem('darasiCart', JSON.stringify(cart));
+                
+                // Update cart display
+                updateCartDisplay();
+                
+                // Show message
+                showMessage('success', 'Item removed from cart');
+            }
+        }
+        
+        // Initialize the app
+        init();
     </script>
 </body>
 </html>
